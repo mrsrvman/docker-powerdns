@@ -4,9 +4,9 @@ MAINTAINER Fabio Rauber <fabiorauber@gmail.com>
 
 ENV PDNSCONF_LAUNCH="gmysql" \
     PDNSCONF_GMYSQL_HOST="mysql" \
-    PDNSCONF_GMYSQL_USER='' \
-    PDNSCONF_GMYSQL_DBNAME='' \
-    PDNSCONF_GMYSQL_PASSWORD='' \
+    PDNSCONF_GMYSQL_USER='pdns' \
+    PDNSCONF_GMYSQL_DBNAME='pdns' \
+    PDNSCONF_GMYSQL_PASSWORD='pdnspw' \
     PDNSCONF_INCLUDE_DIR="/etc/powerdns/pdns.d" \
     PDNSCONF_GMYSQL_DNSSEC="yes" \
     PDNSCONF_API_KEY="" \
