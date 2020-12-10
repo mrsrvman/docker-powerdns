@@ -17,7 +17,7 @@ CREATE TABLE records (
   domain_id             INT DEFAULT NULL,
   name                  VARCHAR(255) DEFAULT NULL,
   type                  VARCHAR(10) DEFAULT NULL,
-  content               VARCHAR(64000) DEFAULT NULL,
+  content               TEXT DEFAULT NULL,
   ttl                   INT DEFAULT NULL,
   prio                  INT DEFAULT NULL,
   disabled              TINYINT(1) DEFAULT 0,
@@ -86,3 +86,5 @@ CREATE TABLE tsigkeys (
 ) Engine=InnoDB;
 
 CREATE UNIQUE INDEX namealgoindex ON tsigkeys(name, algorithm);
+
+INSERT INTO domains(name, type) values('localhost', 'Server');
