@@ -1,6 +1,6 @@
 pdns:
   #build: pdns
-  image: mrsrvman/powerdns:latests
+  image: mrsrvman/docker-powerdns:latest
   links:
     - "mysql:mysql"
   ports:
