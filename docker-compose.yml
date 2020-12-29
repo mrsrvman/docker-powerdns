@@ -1,11 +1,11 @@
 pdns:
   #build: pdns
-  image: mrsrvman/docker-powerdns:latest
+  image: mrsrvman/docker-powerdns:4.2
   links:
     - "mysql:mysql"
   ports:
-    - "53:53"
-    - "53:53/udp"
+    - "54:53"
+    - "54:53/udp"
     - "8088:8081"
   environment:
     - PDNSCONF_API_KEY=a_strong_api_key
@@ -17,6 +17,8 @@ pdns:
     - PDNSCONF_GMYSQL_DBNAME=pdns
     - PDNSCONF_GMYSQL_USER=pdns
     - PDNSCONF_GMYSQL_PASSWORD=pdnspw
+    - PDNSCONF_WEBSERVER_LOGLEVEL=detailed
+    - PDNSCONF_LOGLEVEL=6
 
 mysql:
   image: bitnami/mariadb:latest

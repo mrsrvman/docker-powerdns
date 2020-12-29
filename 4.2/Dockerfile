@@ -15,11 +15,14 @@ ENV PDNSCONF_LAUNCH="gmysql" \
 ADD *.sh /usr/local/bin/
 ADD schema.mysql.sql /usr/share/doc/pdns-backend-mysql/
 RUN chmod a+x /usr/local/bin/*.sh
+ADD ["https://raw.githubusercontent.com/mrsrvman/docker-cleanimage/master/cleanimage", "/usr/local/bin/"]
+RUN chmod +x "/usr/local/bin/cleanimage"
 
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive  apt-get install --assume-yes --no-install-recommends apt-utils | grep -v "debconf: delaying package configuration, since apt-utils is not installed" && \
     DEBIAN_FRONTEND=noninteractive apt-get install -q -y curl gnupg && \
-    curl https://repo.powerdns.com/FD380FBB-pub.asc | apt-key add -
+    curl https://repo.powerdns.com/FD380FBB-pub.asc | apt-key add - && \
+    cleanimage
 
 ADD pdns.list /etc/apt/sources.list.d/pdns.list
 ADD pdns.preference /etc/apt/preferences.d/pdns 
@@ -28,7 +31,7 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -q -y pdns-
     rm /etc/powerdns/pdns.d/*.conf && rm /etc/powerdns/*.conf && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends cron jq && \
     rm /etc/cron.daily/* && \
-    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    cleanimage
 
 EXPOSE 53/udp 53/tcp
 
