@@ -16,8 +16,11 @@ ADD *.sh /usr/local/bin/
 ADD schema.mysql.sql /usr/share/doc/pdns-backend-mysql/
 RUN chmod a+x /usr/local/bin/*.sh
 
-RUN wget https://raw.githubusercontent.com/mrsrvman/docker-cleanimage/master/cleanimage -O /usr/local/bin//cleanimage \
-    && chmod +x /usr/local/bin/cleanimage
+ENV CLEANIMAGE_VERSION master
+ENV CLEANIMAGE_URL https://raw.githubusercontent.com/mrsrvman/docker-cleanimage/$CLEANIMAGE_VERSION/cleanimage
+
+ADD ["$CLEANIMAGE_URL", "/usr/local/bin/"]
+RUN chmod +x "/usr/local/bin/cleanimage"
 
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive  apt-get install --assume-yes --no-install-recommends apt-utils | grep -v "debconf: delaying package configuration, since apt-utils is not installed" && \
